@@ -24,14 +24,13 @@ def auto_version_setup(**kwargs):
 auto_version_setup(
     name='ruruki-eye',
     author='Andre F. Macedo',
-    author_email='andre.macedo@optiver.com.au',
+    author_email='andre.macedo _at_ optiver.com.au',
     maintainer='Andre F. Macedo',
-    maintainer_email='andre.macedo@optiver.com.au',
+    maintainer_email='andre.macedo _at_ optiver.com.au',
     classifiers=[
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: Apache Software License",
         "Intended Audience :: Developers",
-        "Intended Audience :: Information Technology",
         "Intended Audience :: Information Technology",
         "Framework :: Flask",
         "Programming Language :: Python :: 2.7",
