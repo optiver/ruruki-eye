@@ -24,10 +24,21 @@ def auto_version_setup(**kwargs):
 auto_version_setup(
     name='ruruki-eye',
     author='Andre F. Macedo',
-    author_email='andre.macedo _at_ optiver.com.au',
+    author_email='andre.macedo@optiver.com.au',
     maintainer='Andre F. Macedo',
-    maintainer_email='andre.macedo _at_ optiver.com.au',
-    classifiers=['Fail :: Safe'],
+    maintainer_email='andre.macedo@optiver.com.au',
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "License :: OSI Approved :: Apache Software License",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Information Technology",
+        "Intended Audience :: Information Technology",
+        "Framework :: Flask",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 2 :: Only",
+        "Topic :: Database :: Database Engines/Servers",
+        "Topic :: Software Development :: Libraries",
+    ],
     keywords='graph db memory interactive eye visualizer web',
     description='Ruruki Eye is a visualizer for Ruruki (In Memory Graph Tool)',
     packages=find_packages(),
@@ -38,7 +49,7 @@ auto_version_setup(
         ]
     },
     install_requires=[
-        'ruruki>=0.0.1.dev14,<0.1.0',
+        'ruruki',
         'flask>=0.10.1,<0.11',
         'flask-cors>=2.1.2,<3.0.0'
     ],
