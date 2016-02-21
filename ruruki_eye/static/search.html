@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+           RurukiEye - Search
+        </title>
+
+        <link rel='shortcut icon' href="static/img/favicon.ico?v=2" />
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="static/css/ruruki-eye.css">
+
+        <style>
+            @font-face {
+                font-family: OpenSansLight;
+                src: url(../static/fonts/OpenSans-Light.ttf);
+            }
+
+            @font-face {
+                font-family: OpenSansRegular;
+                src: url(../static/fonts/OpenSans-Regular.ttf);
+            }
+
+            body {
+                padding-top: 70px;
+                font-family: OpenSansRegular;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                height: 100vh;
+            }
+        </style>
+
+        <script src="static/js/jquery-2.1.4.min.js" type="application/javascript"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <img style="max-height: 1.5em; margin-top: -0.1em" src="static/img/rurukieye_logo.png" alt="Ruruki!">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/vertices">Search</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <script type="text/dust" id="search_tmpl">
+          {?indexes}
+            <h1 id="search_anchor">Filter</h1>
+            <p>Filter for a base node.</p>
+            <form action="/vertices" method="GET" id="search_form">
+                <div class="form-group">
+                    {@iterate on=indexes}
+                    <div class="row">
+                        <label class="col-md-2 control-label">{key}</label>
+                        <div class="col-md-3">
+                            <select class="form-control" id=property_{key}>
+                                {#value}
+                                    <option>{.}</option>
+                                {/value}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" id=filter_{key}>
+                                {#filters}
+                                  <option>{.}</option>
+                                {/filters}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control search-property" name="{key}" title="Use '*' if you want the search to return all the available nodes with this label ({key})"/>
+                        </div>
+                    </div>
+                    {/iterate}
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-success form-control">Search!</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+          {:else}
+            <p>Not able to fetch GRAPH filters, nothing to do here!</p>
+          {/indexes}
+        </script>
+
+        <script type="text/dust" id="results_tmpl">
+            <hr>
+                {^vertices}
+                    <h1 id="results_anchor">Hmmm...</h1>
+                    <p>Your filter returned <strong>0</strong> vertices!</p>
+                {:else}
+                    <h1 id="results_anchor">Results:</h1>
+                    <p><strong>{vertices.length}</strong> vertices found! Select one to visualize:</p>
+    
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>Label</td>
+                                <td>Name</td>
+                                <td>Properties</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#vertices}
+                                <tr>
+                                    <td><a href=/vertices/{id}>{label}</a></td>
+                                    <td><a href=/vertices/{id}>{properties.name}</a></td>
+                                    <td>
+                                    {@iterate on=properties}
+                                        {?value}
+                                          <strong>{key}</strong>: {value}{~s}
+                                        {/value}
+                                    {/iterate}
+                                    </td>
+                                </tr>
+                            {/vertices}
+                        </tbody>
+                    </table>
+                {/vertices}
+        </script>
+
+        <script type="text/dust" id="error_tmpl">
+            <h1 id="error_anchor">Error!</h1>
+            <p>Backend seems to be misbehaving.</p>
+            <blockquote>
+                {?error}
+                    {status} - {statusText}
+                {/error}
+            </blockquote>
+        </script>
+    
+        <section id="search" style="margin: 0 25px 25px 25px">
+        </section>
+
+        <section id="results" style="margin: 0 25px 0px 25px">
+        </section>
+
+        <section id="error" style="margin: 0 25px 0px 25px">
+        </section>
+        
+        <script src="static/js/dust-full.min.js" type="application/javascript"></script>  
+
+        <script>
+            dust.helpers.iterate = function(chunk, context, bodies, params) {
+                params = params || {};
+                var obj = params['on'] || context.current();
+                for (var k in obj) {
+                    chunk = chunk.render(bodies.block, context.push({key: k, value: obj[k]}));
+                }
+
+                return chunk;
+            }
+
+            function sortByLabel(a, b) {
+                if (a.label < b.label)
+                    return -1;
+
+                if (a.label > b.label)
+                    return 1;
+
+                return 0;
+            }
+
+            function compileTemplates() {
+                ['error', 'search', 'results'].forEach(function(each) {
+                    var template = document.getElementById(each + '_tmpl');
+                    dust.loadSource(dust.compile(template.textContent, each));
+                });
+            }
+
+            function applyTemplate(data, section) {
+                dust.render(section, data, function(err, out) {
+                    document.getElementById(section).innerHTML = out;
+
+                    var anchor = $('#' + section + '_anchor');
+    
+                    if (anchor.offset()) {
+                        $('html,body').animate(
+                            {scrollTop: anchor.offset().top - 70},
+                            'slow'
+                        );
+                    }
+                });
+            }
+
+            function trapSubmit() {
+                $('#search_form').submit(function(event) {
+                    event.preventDefault();
+
+                    var constraints = $('.search-property');
+                    var query = '__cb=' + Date.now();
+
+                    constraints.toArray().forEach(function(each) {
+                        if (!each.value) return;
+
+                        var property = $('[id="property_' + each.name + '"]');
+                        var filter = $('[id="filter_' + each.name + '"]');
+
+                        query += '&';
+                        query += each.name + ':' + property.val() + filter.val() + '=' + each.value;
+                    });
+
+                    $.ajax({
+                        type: 'GET',
+                        async: true,
+                        dataType: 'json',
+                        crossDomain: true,
+                        url: '/vertices',
+                        data: query,
+                        beforeSend: function(xhr) {
+                            xhr.withCredentials = true;
+                        },
+                        success: function(data) {
+                            applyTemplate(
+                                {
+                                    vertices: data.vertices.sort(sortByLabel)
+                                },
+                                'results'
+                            );
+                        },
+                        error: function(error) {
+                           if (error.status < 300) return;
+                           applyTemplate(
+                               error,
+                               'error'
+                           );
+                        }
+                    });
+                });
+            }
+
+            $(document).ready(function() {    
+                compileTemplates();
+
+                $.ajax({
+                    type: 'GET',
+                    async: true,
+                    dataType: 'json',
+                    crossDomain: true,
+                    url: '/indexes',
+                    beforeSend: function(xhr) {
+                          xhr.withCredentials = true;
+                    },
+                    success: function(data) {
+                         console.log('DATA', data);
+                        applyTemplate(data, 'search');
+                        trapSubmit();
+                    }
+                });
+            });
+        </script>    
+    </body>
+</html>
+

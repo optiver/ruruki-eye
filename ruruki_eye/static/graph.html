@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+           RurukiEye - View
+        </title>
+
+        <link rel='shortcut icon' href="../static/img/favicon.ico?v=2" />
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+
+        <style>
+            @font-face {
+                font-family: OpenSansLight;
+                src: url(../static/fonts/OpenSans-Light.ttf);
+            }
+
+            @font-face {
+                font-family: OpenSansRegular;
+                src: url(../static/fonts/OpenSans-Regular.ttf);
+            }
+
+            body {
+                padding-top: 70px;
+                font-family: OpenSansRegular;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                height: 100vh;
+            }
+        </style>
+
+        <script src="../static/js/jquery-2.1.4.min.js" type="application/javascript"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <img style="max-height: 1.5em; margin-top: -0.1em" src="../static/img/rurukieye_logo.png" alt="Ruruki!">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/vertices">Search</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="ruruki-eye" class="ruruki-eye"/>
+
+        <script src="../static/js/d3.v3.js"></script>
+        <script src="../static/js/ruruki-eye.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                var baseNodeId = window.document.location.pathname.split('/').pop();
+                var sep = window.document.location.href.indexOf('?') === -1 ? '?' : '&';
+                var url = window.document.location.href + sep + '__cb=' + Date.now();
+                $.ajax({
+                    type: 'GET',
+                    async: true,
+                    dataType: 'json',
+                    crossDomain: true,
+                    url: url,
+                    beforeSend: function(xhr) {
+                        xhr.withCredentials = true;
+                    },
+                    success: function(data) {
+                        new RurukiEye({
+                            data: data,
+                            centerId: parseInt(baseNodeId),
+                            container: '#ruruki-eye',
+                            help: true,
+                                controlPanel: true,
+                                infoPanel: true,
+                                cssUrl: "../static/css/ruruki-eye.css"
+                        });
+                    },
+                    error: function(error) {
+                        console.log('ERROR: Not able to get JSON from server!');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
+

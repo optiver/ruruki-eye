@@ -1,0 +1,12 @@
+*egg-*
+*.pyc
+*.swp
+*.swo
+.tox
+.coverage
+docs/_build
+docs/js
+out
+node_modules
+MANIFEST
+.DS_Store

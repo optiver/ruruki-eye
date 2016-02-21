@@ -1,0 +1,270 @@
+.ruruki-eye {
+  position: relative;
+  padding-left: 40px;
+  padding-right: 30px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+
+.ruruki-main {
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 100%;
+  vertical-align: middle; }
+
+.ruruki-main-responsive {
+  display: inline-block;
+  width: 100%;
+  top: 80px;
+  left: 0; }
+
+.info-properties-key {
+  font-weight: bold; }
+
+/* FORCE GRAPH */
+.ruruki-info.info {
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  z-index: -1; }
+
+.ruruki-info.detail {
+  font-size: 10px;
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  z-index: -1; }
+
+.vertex.node {
+  fill: #ccc;
+  stroke-width: 3px; }
+
+.vertex.node.fixed {
+  stroke: #333;
+  stroke-width: 3px;
+  z-index: -10; }
+
+.vertex.node.highlighted {
+  stroke: red;
+  stroke-width: 3px;
+  animation: blinker 1.5s linear infinite;
+  z-index: 100; }
+
+.vertex.text {
+  font: 10px OpenSansLight;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none; }
+
+.vertex.text.highlighted {
+  font-size: 1em;
+  stroke: black;
+  z-index: 100; }
+
+.arrowhead {
+  fill: #707070; }
+
+.edge {
+  fill: none;
+  stroke: #555;
+  stroke-width: 1px;
+  stroke-opacity: .3;
+  z-index: -100; }
+
+.edge.highlighted {
+  stroke: red;
+  stroke-width: 2px;
+  stroke-dasharray: 4, 2;
+  stroke-opacity: 1;
+  animation: dashing 5s linear infinite; }
+
+@keyframes blinker {
+  0% {
+    stroke-opacity: 1.0; }
+  50% {
+    stroke-opacity: 0.0; }
+  100% {
+    stroke-opacity: 1.0; } }
+
+@keyframes dashing {
+  to {
+    stroke-dashoffset: -50; } }
+
+/* eof FORCE GRAPH */
+/* Help */
+div.help {
+  font-size: 12px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  padding: 10px 10px 0px 10px;
+  background-color: rgba(255, 255, 0, 0.2);
+  border: 1px solid #f5f500; }
+
+div.help.deactivated {
+  display: none; }
+
+/* eof Help */
+/* INSPECTOR */
+.ruruki-cp {
+  position: absolute;
+  right: 20px;
+  top: 19px;
+  bottom: 20px;
+  background-color: rgba(242, 242, 242, 0.8);
+  border: 1px solid darkgrey;
+  width: 10%; }
+
+.ruruki-cp-title {
+  position: absolute;
+  right: 20px;
+  top: 0px;
+  border: 1px solid darkgrey;
+  width: 10%; }
+
+.container.inspector {
+  width: 100%;
+  font-size: 12px; }
+
+.row.title {
+  position: relative;
+  background: darkgrey;
+  color: white;
+  padding-right: 10px; }
+
+.row.property {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 15px; }
+
+.row.property > input {
+  width: 100%;
+  margin-bottom: 2px; }
+
+.inspector.property {
+  padding-left: 5px;
+  padding-right: 15px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none; }
+
+.inspector.property.disabled > .label {
+  background-color: #f2f2f2 !important;
+  border: 1px solid darkgrey;
+  color: darkgrey; }
+
+.inspector-title {
+  font-weight: bold;
+  padding-left: 10px; }
+
+.inspector-expander {
+  position: absolute;
+  right: 5px;
+  top: 0px;
+  cursor: pointer; }
+
+/* Inspector TABS */
+.ruruki-cp-tabs input[type=radio] {
+  position: absolute;
+  top: -9999px;
+  left: -9999px; }
+
+.ruruki-cp-tabs {
+  float: none;
+  list-style: none;
+  position: relative;
+  padding: 0;
+  margin: auto; }
+
+.ruruki-cp-tabs-container {
+  float: left; }
+
+.ruruki-cp-tabs.label {
+  display: block;
+  padding: 5px 5px;
+  border: 1px solid darkgrey;
+  border-radius: 0 0 5px 5px;
+  color: darkgrey;
+  background: rgba(242, 242, 242, 0.8);
+  cursor: pointer;
+  position: relative;
+  top: -1px;
+  font-size: 12px; }
+
+[id^=ruruki-cp-tab]:checked + .ruruki-cp-tabs.label {
+  background: darkgrey;
+  color: white; }
+
+[id^=ruruki-cp-tab]:checked ~ [id^=ruruki-cp-tab-content],
+[id^=ruruki-cp-tab]:checked ~ [id^=ruruki-cp-tab-content] > div {
+  display: block; }
+
+.ruruki-cp-tab-content {
+  z-index: 2;
+  display: none;
+  width: 100%;
+  line-height: 140%;
+  position: absolute;
+  box-sizing: border-box;
+  left: 0px;
+  right-padding: 10px; }
+
+.ruruki-cp-tab-content > div {
+  display: none; }
+
+/* Custom Filters */
+.ruruki-cp-divider {
+  overflow: hidden;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer; }
+
+.ruruki-cp-divider:before,
+.ruruki-cp-divider:after {
+  background-color: #000;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%; }
+
+.ruruki-cp-divider:before {
+  right: 0.5em;
+  margin-left: -50%; }
+
+.ruruki-cp-divider:after {
+  left: 0.5em;
+  margin-right: -50%; }
+
+.ruruki-cp-cf-controls {
+  margin-top: -10px; }
+
+.ruruki-cp-cf-controls.right {
+  margin-right: -1px;
+  float: right; }
+
+.ruruki-cp-cf-controls.left {
+  margin-left: -1px;
+  float: left; }
+
+.ruruki-cp-cf-controls > button {
+  margin: 1px;
+  padding: 1px 2px 0px 2px;
+  font-size: 10px; }
+
+.ruruki-cp-cf-controls.right > button > span {
+  margin-right: 1px; }
+
+.ruruki-cp-cf-controls.left > button > span {
+  margin-left: 2px; }
+
+/* eof Custom Filters */
+/* eof Inspector TABS */
+/* eof INSPECTOR */

@@ -1,0 +1,39 @@
+{
+  "name": "ruruki-eye",
+  "version": "0.0.1",
+  "description": "A graph visual explorer",
+  "main": "Gulpfile.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-sass": "^2.1.0",
+    "gulp-shell": "^0.5.0",
+    "gulp-uglify": "^1.5.2",
+    "jasmine": "^2.3.2",
+    "jsdoc": "^3.3.3",
+    "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-spec-reporter": "0.0.22",
+    "phantomjs": "^1.9.18"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/optiver/ruruki-eye.git"
+  },
+  "keywords": [
+    "ruruki",
+    "ruruki-eye",
+    "d3"
+  ],
+  "author": "Andre F. Macedo",
+  "license": "Apache-2.0"
+}
