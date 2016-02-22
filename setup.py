@@ -44,7 +44,7 @@ auto_version_setup(
     package_data={
         'ruruki_eye': [
             'static/*/*',
-            'templates/*.html',
+            'static/*.html',
         ]
     },
     install_requires=[
