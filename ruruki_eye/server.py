@@ -2,7 +2,7 @@ import collections
 import json
 import logging
 import optparse
-import ruruki
+from ruruki import graphs
 
 from flask import Flask
 from flask import jsonify
@@ -15,7 +15,7 @@ from werkzeug.exceptions import NotFound
 
 app = Flask(__name__)
 CORS(app)
-DB = ruruki.create_graph()
+DB = graphs.Graph()
 LOGGER = logging.getLogger(__name__)
 
 
