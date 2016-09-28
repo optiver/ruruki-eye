@@ -223,7 +223,8 @@ function processData(data, preData, parentVertex) {
             ) || 0.0,
             visiblyConnectedEdges: [],
             isVisible: true,
-            parentVertexId: parentVertex ? parentVertex.id : null
+            parentVertexId: parentVertex ? parentVertex.id : null,
+            href: each.href
         };
 
         if (labels.tags.vertex[each.label] === undefined) {
@@ -1370,10 +1371,17 @@ var RurukiEye = function(config) {
      *   - Middle button: opens clicked node in a new tab
      */
     function mouseClicked(d) {
+        d3.event.preventDefault();
+
         if (config.openNewTab === false) return;
 
         if (d && d3.event.button === 1) {
-            win = window.open('/vertices/' + d.id, '_blank');
+            var url = d.href || '/vertices/' + d.id;
+            if (d3.event.ctrlKey) {
+                win = window.open(url, '_blank');
+            } else {
+                window.location = url;
+            }
         }
     }
 
