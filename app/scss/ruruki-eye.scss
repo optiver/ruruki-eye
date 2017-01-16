@@ -62,7 +62,8 @@
 }
 
 .vertex.text {
-    font: 10px OpenSansLight;
+    font: 10px 'Open Sans';
+    font-weight: 300;
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
@@ -125,7 +126,7 @@ div.help.deactivated {
 /* eof Help */
 
 /* INSPECTOR */
-$inspector_width: 10%;
+$inspector_width: 18%;
 $inspector_border_color: darkgrey;
 $inspector_border_style: 1px solid $inspector_border_color;
 $inspector_bg_color: rgba(242,242,242,0.8);
@@ -140,6 +141,7 @@ $inspector_disabled_color: darkgrey;
     background-color: $inspector_bg_color;
     border: $inspector_border_style;
     width: $inspector_width;
+    overflow-y: auto;
 }
 
 .ruruki-cp-title {
