@@ -1,0 +1,61 @@
+<div id="properties-editor-container">
+    <div id="properties-editor-node-add" style="display:none">
+        <div class="row property">
+            <label for="properties-editor-node-add-input">Add another node to the graph</label>
+            <input id="properties-editor-node-add-input" type="text" autocomplete="on" placeholder="Type a node name" class="form-control input-sm" />
+            <div id="properties-editor-node-add-dropdown-container" style="display:none">
+                <select name="list" id="properties-editor-node-add-dropdown" size="5" class="form-control input-sm" style="height:80px"></select>
+            </div>
+        </div>
+        <div class="row property">
+            <div class="ruruki-cp-cf-controls left">
+                <button type="button" class="btn btn-xs btn-warning" title="Clear" id="properties-editor-add-clear">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    Clear Typing
+                </button>
+            </div>
+            <div class="ruruki-cp-cf-controls right">
+                <button disabled="" type="button" class="btn btn-xs btn-success" title="Add Application" id="properties-editor-add-add">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    Add Node
+                </button>
+            </div>
+        </div>
+        <hr style="margin:10px 0 0 0" />
+    </div>
+    <div class="row property" id="properties-editor-select-container" style="cursor: default">
+        <label>Properties</label>
+        <i id="properties-editor-select-noselect"><br />Nothing has been selected at this time.</i>
+        <table id="properties-editor-select-proptable" style="width:100%;table-layout:fixed"></table>
+    </div>
+    <div class="row property">
+        <div class="ruruki-cp-cf-controls left">
+            <button disabled="" type="button" class="btn btn-xs btn-warning" title="Clear Selection" id="properties-editor-select-clear">
+                <i class="glyphicon glyphicon-remove"></i>
+                Clear Selection
+            </button>
+        </div>
+        <div class="ruruki-cp-cf-controls right">
+            <button disabled="" type="button" class="btn btn-xs btn-danger" title="Delete Selection" id="properties-editor-select-delete">
+                <i class="glyphicon glyphicon-trash"></i>
+                Delete Selection
+            </button>
+        </div>
+    </div>
+    <div class="row property ruruki-cp-cf-controls">
+        <button disabled="" type="button" class="btn btn-xs btn-info" title="Remove Selection" id="properties-editor-select-remove" style="width:100%">
+            <i class="glyphicon glyphicon-remove"></i>
+            Remove Selection from Graph
+        </button>
+    </div>
+    <hr style="margin:10px 0 0 0" />
+    <div class="row property">
+        <div class="ruruki-cp-cf-controls left">
+            <button type="button" class="btn btn-xs btn-primary" title="Pin All" id="properties-editor-pinall" style="width: 100%">
+                <i class="glyphicon glyphicon-pushpin"></i>
+                Pin All Nodes in Current Position
+            </button>
+        </div>
+    </div>
+    <script src="/static/js/properties-editor.js"></script>
+</div>
