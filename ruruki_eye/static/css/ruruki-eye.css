@@ -53,7 +53,8 @@
   z-index: 100; }
 
 .vertex.text {
-  font: 10px OpenSansLight;
+  font: 10px 'Open Sans';
+  font-weight: 300;
   pointer-events: none;
   user-select: none;
   -webkit-user-select: none;
@@ -116,14 +117,15 @@ div.help.deactivated {
   bottom: 20px;
   background-color: rgba(242, 242, 242, 0.8);
   border: 1px solid darkgrey;
-  width: 10%; }
+  width: 18%;
+  overflow-y: auto; }
 
 .ruruki-cp-title {
   position: absolute;
   right: 20px;
   top: 0px;
   border: 1px solid darkgrey;
-  width: 10%; }
+  width: 18%; }
 
 .container.inspector {
   width: 100%;
