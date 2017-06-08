@@ -95,7 +95,7 @@ def fetch_data(vertex_id=None, levels=0, **kwargs):
 
     tunned_kwargs = kwargs.copy()
 
-    for key, value in kwargs.iteritems():
+    for key, value in kwargs.items():
         if ':' in key:
             value = tunned_kwargs.pop(key)
             tokens = key.split(':')
@@ -215,7 +215,6 @@ def index():
                 ])
             ]):
                 lfilters[tokens[0]] = tokens[1][1:-2]
-                print 'VALUE: %s' % lfilters[tokens[0]]
             else:
                 try:
                     lfilters[tokens[0]] = float(tokens[1])
@@ -237,8 +236,6 @@ def index():
     edges = set()
 
     if request.args and 'filter' in request.args:
-        print 'FILTER: ',
-        print request.args.get('filter')
         for f in json.loads(request.args.get('filter')):
             lfilter = _parse_filters(f[0])
             data = db.get_vertices(**lfilter)
